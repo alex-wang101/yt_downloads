@@ -2,10 +2,14 @@ import yt_dlp
 
 def download_video(url):
     ydl_opts = {
-        'format': 'bestvideo[height<=1080]+bestaudio/best',  # selects the best video and audio within the resolution limit
-        'outtmpl': '%(title)s.%(ext)s',  # sets the output filename to the video title
-        'merge_output_format': 'mp4',  # ensures the final file is in MP4 format
-        'noplaylist': True,  # avoids downloading entire playlists
+        'format': 'bestvideo[height<=1080]+bestaudio/best',  
+        'outtmpl': '%(title)s.%(ext)s',  
+        'merge_output_format': 'mp4',  
+        'noplaylist': True,
+        'postprocessors': [{  
+            'key': 'FFmpegVideoConvertor',
+            'preferedformat': 'mp4',  
+        }],
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
